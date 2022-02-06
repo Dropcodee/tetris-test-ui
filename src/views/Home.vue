@@ -30,11 +30,14 @@ export default {
     const loadMoreRepos = () => {
       // console.log('repo fetch --- ')
       currentPage.value = currentPage.value + 1
-      store.dispatch('tetris/FetchTetrisRepos', {
-        query: 'tetris',
-        limit: 15,
-        page: currentPage.value
-      })
+      if (currentPage.value < 5) {
+        store.dispatch('tetris/FetchTetrisRepos', {
+          query: 'tetris',
+          limit: 15,
+          page: currentPage.value
+        })
+      }
+      console.log('Limit pages exceeded, refresh again for infinite scroll to work.')
     }
     const handleScroll = () => {
       if (
